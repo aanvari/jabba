@@ -7,6 +7,7 @@ class Directory
 	public function __construct($path)
 	{
 		$this->setPath($path);
+        Jabba::getInstance()->setPath($path);
 	}
 	
     /**
