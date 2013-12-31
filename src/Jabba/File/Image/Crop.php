@@ -55,7 +55,7 @@ class Crop
         $src = $image->getPath();
 
         $uniqueId = \Jabba\File::getRandomString();
-        $dest = \Jabba\Jabba::getInstance()->getImageDirectory() . \Jabba\File\Image::getPathByName($uniqueId, 3, true) . $uniqueId . '.' . $image->getExtension();;
+        $dest = \Jabba\Jabba::getInstance()->getPath() . \Jabba\File\Image::getPathByName($uniqueId, 3, true) . $uniqueId . '.' . $image->getExtension();;
 
         $this->_handle($src, $dest, $x, $y, $width, $height);
                 

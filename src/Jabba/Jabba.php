@@ -2,7 +2,7 @@
 
 class Jabba
 {
-    private $imageDirectory;
+    private $path;
 
     private static $instance;
 
@@ -15,15 +15,15 @@ class Jabba
         return self::$instance;
     }
 
-    public function setImageDirectory($val)
+    public function setPath($val)
     {
-        $this->imageDirectory = $val;
+        $this->path = $val;
 
         return $this;
     }
 
-    public function getImageDirectory()
+    public function getPath()
     {
-        return $this->imageDirectory;
+        return $this->path;
     }
 }

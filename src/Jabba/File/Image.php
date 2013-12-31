@@ -65,7 +65,7 @@ class Image extends File
         $directories = str_split($name, $length);
         array_pop($directories);
 
-        $base = \Jabba\Jabba::getInstance()->getImageDirectory();
+        $base = \Jabba\Jabba::getInstance()->getPath();
 
         foreach ($directories as $i => $dir) {
             $path =  implode(DIRECTORY_SEPARATOR, array_slice($directories, 0, $i + 1));
