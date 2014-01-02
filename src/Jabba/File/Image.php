@@ -60,7 +60,7 @@ class Image extends File
      * 
      * @return string
      */
-    public static function getPathByName($name, $length = 3, $create = false)
+    public static function getPathByName($path, $name, $length = 3, $create = false)
     {
         $directories = str_split($name, $length);
         array_pop($directories);

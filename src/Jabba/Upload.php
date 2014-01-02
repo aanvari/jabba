@@ -86,9 +86,9 @@ class Upload
 
         $length = rand(7, 9);
         $uniqueId = File::getRandomString($length);
-        $resource = $path . File\Image::getPathByName($uniqueId, 3, true) . $uniqueId . '.' . $ext;
+        $resource = $path . File\Image::getPathByName($path, $uniqueId, 3, true) . $uniqueId . '.' . $ext;
         while (file_exists($resource)) {
-            $resource = $path . File\Image::getPathByName($uniqueId, 3, true) . File::getRandomString($length) . '.' . $ext;
+            $resource = $path . File\Image::getPathByName($path, $uniqueId, 3, true) . File::getRandomString($length) . '.' . $ext;
         }
 
         if ($this->getHandler()->save($resource)) {
