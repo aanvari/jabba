@@ -53,20 +53,21 @@ class Image extends File
 
     /**
      * Returns the path using a given file name
-     * 
+     *
+     * @param  string  $base
      * @param  string  $name
      * @param  integer $length
      * @param  boolean $create (if true creates the necessary path directories)
      * 
      * @return string
      */
-    public static function getPathByName($path, $name, $length = 3, $create = false)
+    public static function getPathByName($base, $name, $length = 3, $create = false)
     {
         $directories = str_split($name, $length);
         array_pop($directories);
 
         foreach ($directories as $i => $dir) {
-            $path .=  implode(DIRECTORY_SEPARATOR, array_slice($directories, 0, $i + 1));
+            $path =  $base . implode(DIRECTORY_SEPARATOR, array_slice($directories, 0, $i + 1));
             if ($create && !is_dir($path)) {
                 if (!mkdir($path, 0777, true)) {
                     throw new Exception('Failed to create cache directory in ' . $path);
