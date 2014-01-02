@@ -65,12 +65,10 @@ class Image extends File
         $directories = str_split($name, $length);
         array_pop($directories);
 
-        $base = \Jabba\Jabba::getInstance()->getPath();
-
         foreach ($directories as $i => $dir) {
-            $path =  implode(DIRECTORY_SEPARATOR, array_slice($directories, 0, $i + 1));
-            if ($create && !is_dir($base . $path)) {
-                if (!mkdir($base . $path, 0777, true)) {
+            $path .=  implode(DIRECTORY_SEPARATOR, array_slice($directories, 0, $i + 1));
+            if ($create && !is_dir($path)) {
+                if (!mkdir($path, 0777, true)) {
                     throw new Exception('Failed to create cache directory in ' . $path);
                 }
             }
