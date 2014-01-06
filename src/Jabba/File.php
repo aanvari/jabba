@@ -143,7 +143,7 @@ class File
         $index = array_search('public', $parts);
         $length = count($parts) - $index - 1;
 
-        return implode(DIRECTORY_SEPARATOR, array_slice($parts, $index + 1, $lenth)) . $this->getName() . '.' . $this->getExtension();
+        return implode(DIRECTORY_SEPARATOR, array_slice($parts, $index + 1, $length)) . $this->getName() . '.' . $this->getExtension();
     }
 
     /**
