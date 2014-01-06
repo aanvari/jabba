@@ -128,6 +128,25 @@ class File
     }
 
     /**
+     * Returns the publicly accessible Url for the file (if applicable)
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function getUrl()
+    {
+        $parts = explode(DIRECTORY_SEPARATOR, $this->getPath());
+        if (!in_array('public', $parts)) {
+            throw new \Exception('This is not a public resource.');
+        }
+
+        $index = array_search('public', $parts);
+        $length = count($parts) - $index - 1;
+
+        return implode(DIRECTORY_SEPARATOR, array_slice($parts, $index + 1, $lenth)) . $this->getName() . '.' . $this->getExtension();
+    }
+
+    /**
      * Returns a unique identifier used to name files to prevent naming conflict
      * 
      * @param  integer $length Length of the identifier
