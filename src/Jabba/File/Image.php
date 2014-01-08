@@ -3,7 +3,63 @@
 use Jabba\File;
 
 class Image extends File
-{		
+{
+    public function __construct($path)
+    {
+        parent::__construct($path);
+        $size = getImageSize($this->getPath());
+        $this->setWidth($size[0])
+            ->setHeight($size[1]);
+    }
+
+    /**
+     * Sets image width
+     *
+     * @param integer $val
+     *
+     * @return \Jabba\File\Image
+     */
+    public function setWidth($val)
+    {
+        $this->_data['width'] = $val;
+
+        return $this;
+    }
+
+    /**
+     * Sets image height
+     *
+     * @param integer $val
+     *
+     * @return \Jabba\File\Image
+     */
+    public function setHeight($val)
+    {
+        $this->_data['height'] = $val;
+
+        return $this;
+    }
+
+    /**
+     * Returns image width
+     *
+     * @return integer
+     */
+    public function getWidth()
+    {
+        return $this->_data['width'];
+    }
+
+    /**
+     * Returns image height
+     *
+     * @return integer
+     */
+    public function getHeight()
+    {
+        return $this->_data['height'];
+    }
+
     /**
      * Resizes the image and saves it to the requested path
      * 
