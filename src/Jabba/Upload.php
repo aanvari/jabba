@@ -68,11 +68,11 @@ class Upload
         $size = $this->getHandler()->getSize();
 
         if ($size == 0) {
-            throw new \Exception('File is empty');
+            throw new \Exception('File is empty.');
         }
 
         if ($size > $this->getSizeLimit()) {
-            throw new \Exception('File is too large');
+            throw new \Exception('File size exceeds maximum upload limit (' . $this->getSizeLimit()/1024 . 'Kb).');
         }
 
         $pathinfo = pathinfo($this->getHandler()->getName());
