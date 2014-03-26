@@ -77,7 +77,7 @@ class Upload
 
         $pathinfo = pathinfo($this->getHandler()->getName());
         $fileName = $pathinfo['filename'];
-        $ext = $pathinfo['extension'];
+        $ext = isset($pathinfo['extension']) ? $pathinfo['extension'] : '';
 
         if ($this->getAllowedExtensions() && !in_array(strtolower($ext), $this->getAllowedExtensions())) {
             $these = implode(', ', $this->getAllowedExtensions());
