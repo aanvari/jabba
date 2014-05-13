@@ -122,7 +122,7 @@ class Compress
      */
     protected function _handlePng($src)
     {
-	    shell_exec('pngquant --quality=60-90 --ext=.png ' . $src);
+	    shell_exec('pngquant --quality=60-90 --ext=.png --force ' . $src);
         
         return $this;
     }
