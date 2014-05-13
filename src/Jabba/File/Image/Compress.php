@@ -40,21 +40,21 @@ class Compress
      * 
      * @return \Jabba\File\Image\Compress
      */
-    public function handle($path = false)
-    {
-        $image = $this->getImage();
-        $src = $image->getPath();        
-        
-        if (!$path || $path == $image->getDirectory()->getPath()) {
-            $dest = $src;            
-        } else {
-            $dest = $path . $image->getName() . '.' . $image->getExtension();
-        } 
-        
-        $this->_handle($src, $dest);
-	                    
-        return $image->setDirectory(new \Jabba\Directory($dest->getDirectory()->getPath()));
-    }
+	public function handle($path = false)
+	{
+		$image = $this->getImage();
+		$src = $image->getPath();
+
+		if (!$path || $path == $image->getDirectory()->getPath()) {
+			$dest = $src;
+		} else {
+			$dest = $path . $image->getName() . '.' . $image->getExtension();
+		}
+
+		$this->_handle($src, $dest);
+
+		return new \Jabba\File\Image($dest);
+	}
     
     /**
      * Handles the compressing and saving process
