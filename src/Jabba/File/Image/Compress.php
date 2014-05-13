@@ -53,7 +53,7 @@ class Compress
         
         $this->_handle($src, $dest);
 	                    
-        return $image->setDirectory(new \Jabba\Directory($dest));
+        return $image->setDirectory(new \Jabba\Directory($dest->getDirectory()->getPath()));
     }
     
     /**
