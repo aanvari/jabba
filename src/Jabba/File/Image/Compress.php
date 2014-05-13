@@ -75,7 +75,7 @@ class Compress
                 // don't do anything
                 break;
             case 'png':
-                $this->_handlePng($src, $dest);
+                $this->_handlePng($src);
                 break;
         }
         
@@ -107,16 +107,22 @@ class Compress
     }
         
     /**
-     * Handles compressing and saving images of type "png" using Optipng
-     * 
+     * Handles compressing and saving images of type "png" using pngquant
+	 * Note: installing pngquant on Ubuntu:
+	 * 
+	 * 1. sudo vim /etc/apt/sources.list
+	 * 2. add to the end:
+	 * 		deb http://us.archive.ubuntu.com/ubuntu raring main universe
+	 * 3. sudo apt-get update
+	 * 4. sudo apt-get install pngquant
+	 * 
      * @param string $src
-     * @param string $dest
      * 
      * @return \Jabba\File\Image\Compress
      */
-    protected function _handlePng($src, $dest)
+    protected function _handlePng($src)
     {
-	    shell_exec('optipng ' . $src . ' -out ' . $dest);
+	    shell_exec('pngquant --quality=60-90 --ext=.png ' . $src);
         
         return $this;
     }
