@@ -40,26 +40,26 @@ class Crop
      * @param integer $y
      * @param integer $width
      * @param integer $height
+	 * @param string $path destination
      * 
      * @return string Generated name for the cropped image
      * @throws \Exception
      */
-    public function handle($x, $y, $width, $height)
-    {   
-        if (!in_array($this->getImage()->getExtension(), array('jpg', 'jpeg', 'png', 'gif'))) {
-            throw new \Exception('Image format is not supported.');
-        }
-        
-        $image = $this->getImage();
-        
-        $src = $image->getPath();
+    public function handle($x, $y, $width, $height, $path)
+    {
+		if (!in_array($this->getImage()->getExtension(), array('jpg', 'jpeg', 'png', 'gif'))) {
+			throw new \Exception('Image format is not supported.');
+		}
 
-        $uniqueId = \Jabba\File::getRandomString();
-        $dest = \Jabba\File\Image::getPathByName($image->getDirectory()->getPath(), $uniqueId, 3, true) . $uniqueId . '.' . $image->getExtension();;
+		$image = $this->getImage();
 
-        $this->_handle($src, $dest, $x, $y, $width, $height);
-                
-        return new \Jabba\File\Image($dest);
+		$uniqueId = \Jabba\File::getRandomString();
+		$src = $image->getPath();
+		$dest = \Jabba\File\Image::getPathByName($path, $uniqueId, 3, true) . $uniqueId . '.' . $image->getExtension();;
+
+		$this->_handle($src, $dest, $x, $y, $width, $height);
+
+		return new \Jabba\File\Image($dest);
     }
     
     /**

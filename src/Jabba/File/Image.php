@@ -83,14 +83,15 @@ class Image extends File
      * @param integer $y
      * @param integer $width
      * @param integer $height
+	 * @param string $path destination
      * 
      * @return \Jabba\File\Image
      */
-	public function crop($x, $y, $width, $height)
+	public function crop($x, $y, $width, $height, $path)
     {
         $crop = new Image\Crop($this);
         
-        return $crop->handle($x, $y, $width, $height);
+        return $crop->handle($x, $y, $width, $height, $path);
     }
 
 	/**
