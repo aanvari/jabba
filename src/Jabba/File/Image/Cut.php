@@ -1,6 +1,6 @@
 <?php namespace Jabba\File\Image;
 
-class Crop
+class Cut
 {   
     protected $_data;
     
@@ -14,7 +14,7 @@ class Crop
      * 
      * @param \Jabba\File\Image $val
      * 
-     * @return \Jabba\File\Image\Crop
+     * @return \Jabba\File\Image\Cut
      */
     public function setImage($val)
     {
@@ -34,7 +34,7 @@ class Crop
     }
     
     /**
-     * Crops the image and saves it to the original image's path
+     * Cuts out a portion from the image and saves the result to the given path
      *      
      * @param integer $x
      * @param integer $y
@@ -42,7 +42,7 @@ class Crop
      * @param integer $height
 	 * @param string $path destination
      * 
-     * @return string Generated name for the cropped image
+     * @return string generated name for the cut image
      * @throws \Exception
      */
     public function handle($x, $y, $width, $height, $path)
@@ -52,18 +52,22 @@ class Crop
 		}
 
 		$image = $this->getImage();
-
-		$uniqueId = \Jabba\File::getRandomString();
 		$src = $image->getPath();
-		$dest = \Jabba\File\Image::getPathByName($path, $uniqueId, 3, true) . $uniqueId . '.' . $image->getExtension();;
 
+		if (!$path || $path == $image->getDirectory()->getPath()) {
+			$dest = $src;
+		} else {
+			$uniqueId = \Jabba\File::getRandomString();
+			$dest = \Jabba\File\Image::getPathByName($path, $uniqueId, 3, true) . $uniqueId . '.' . $image->getExtension();
+		}
+		
 		$this->_handle($src, $dest, $x, $y, $width, $height);
 
 		return new \Jabba\File\Image($dest);
     }
     
     /**
-     * Crops the image and saves it to the original image's path
+     * Cuts out a portion from the image and saves the result to the given path
      * 
      * @param string $src
      * @param string $dest
@@ -72,7 +76,7 @@ class Crop
      * @param integer $width
      * @param integer $height
      * 
-     * @return string Generated name for the cropped image
+     * @return string Generated name for the cut image
      * @throws \Exception
      */
     protected function _handle($src, $dest, $x, $y, $width, $height)
@@ -92,7 +96,7 @@ class Crop
     }
     
     /**
-     * Handles cropping images of type "jpg"
+     * Handles cutting images of type "jpg"
      * 
      * @param string $src
      * @param string $dest
@@ -105,16 +109,13 @@ class Crop
      */
     protected function _handleJpeg($src, $dest, $x, $y, $width, $height)
     {
-        $image1 = imagecreatetruecolor($width, $height);        
-        $image2 = imagecreatefromjpeg($src);
-        imagecopyresampled($image1, $image2, 0, 0, $x, $y, $width, $height, $width, $height);
-        imagejpeg($image1, $dest, 85);
+        // to be implemented
         
         return $this;
     }
     
     /**
-     * Handles cropping and saving images of type "gif"
+     * Handles cutting and saving images of type "gif"
      * 
      * @param string $src
      * @param string $dest
@@ -127,16 +128,13 @@ class Crop
      */
     protected function _handleGif($src, $dest, $x, $y, $width, $height)
     {
-        $image1 = imagecreatetruecolor($width, $height);        
-        $image2 = imagecreatefromgif($src);
-        imagecopyresampled($image1, $image2, 0, 0, $x, $y, $width, $height, $width, $height);
-        imagegif($image1, $dest);
+        // to be implemented
         
         return $this;
     }
     
     /**
-     * Handles cropping and saving images of type "png"
+     * Handles cutting and saving images of type "png"
      * 
      * @param string $src
      * @param string $dest
@@ -149,14 +147,12 @@ class Crop
      */
     protected function _handlePng($src, $dest, $x, $y, $width, $height)
     {
-        $image1 = imagecreatetruecolor($width, $height);
-        imagealphablending($image1, false);
-        imagesavealpha($image1, true);  
+		$image1 = imagecreatefrompng($src);
+		imagealphablending($image1, false);
+		imagesavealpha($image1, true);
 
-        $image2 = imagecreatefrompng($src);
-        imagealphablending($image2, true);
-
-        imagecopyresampled($image1, $image2, 0, 0, $x, $y, $width, $height, $width, $height);
+		$transparent = imagecolorallocatealpha($image1, 0, 0, 0, 127);
+		imagefilledrectangle($image1, $x, $y, $x + $width, $y + $height, $transparent);
 
         imagepng($image1, $dest, 9);
         

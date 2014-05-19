@@ -95,6 +95,24 @@ class Image extends File
     }
 
 	/**
+	 * Cuts out a portion from the image and saves the result to the given path
+	 *
+	 * @param integer $x
+	 * @param integer $y
+	 * @param integer $width
+	 * @param integer $height
+	 * @param string $path destination
+	 *
+	 * @return \Jabba\File\Image
+	 */
+	public function cut($x, $y, $width, $height, $path)
+	{
+		$cut = new Image\Cut($this);
+
+		return $cut->handle($x, $y, $width, $height, $path);
+	}
+
+	/**
 	 * Compresses the image and saves it to the requested path
 	 *	 
 	 * @param string $path Destination to write compressed image to

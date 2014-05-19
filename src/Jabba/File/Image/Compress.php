@@ -10,7 +10,7 @@ class Compress
     }
     
     /**
-     * Sets the image opbject for client
+     * Sets the image object for client
      * 
      * @param \Jabba\File\Image $val
      * 
@@ -24,7 +24,7 @@ class Compress
     }
     
     /**
-     * Returns the image to be resized
+     * Returns the image to be compressed
      * 
      * @return \Jabba\File\Image
      */
@@ -34,7 +34,7 @@ class Compress
     }
     
     /**
-     * Resizes and saves the new image to the requested path
+     * Compresses and saves the new image to the requested path
      *      
      * @param string $path
      * 
