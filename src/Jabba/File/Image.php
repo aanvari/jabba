@@ -105,7 +105,7 @@ class Image extends File
 	 *
 	 * @return \Jabba\File\Image
 	 */
-	public function cut($x, $y, $width, $height, $path)
+	public function cut($x, $y, $width, $height, $path = false)
 	{
 		$cut = new Image\Cut($this);
 

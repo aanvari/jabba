@@ -45,7 +45,7 @@ class Cut
      * @return string generated name for the cut image
      * @throws \Exception
      */
-    public function handle($x, $y, $width, $height, $path)
+    public function handle($x, $y, $width, $height, $path = false)
     {
 		if (!in_array($this->getImage()->getExtension(), array('jpg', 'jpeg', 'png', 'gif'))) {
 			throw new \Exception('Image format is not supported.');
